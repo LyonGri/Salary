@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogic", "BusinessLogic\BusinessLogic.csproj", "{4AFABFE3-CC1A-4F58-B309-330063BFCB22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLogic", "BusinessLogic\BusinessLogic.csproj", "{4AFABFE3-CC1A-4F58-B309-330063BFCB22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CUI", "CUI\CUI.csproj", "{5E94E17D-3622-4525-8FB8-E3C48FECC2DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CUI", "CUI\CUI.csproj", "{5E94E17D-3622-4525-8FB8-E3C48FECC2DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "GUI\GUI.csproj", "{1E29C90D-5AD3-45B0-B5CD-66A77791D92C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{5E94E17D-3622-4525-8FB8-E3C48FECC2DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E94E17D-3622-4525-8FB8-E3C48FECC2DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E94E17D-3622-4525-8FB8-E3C48FECC2DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E29C90D-5AD3-45B0-B5CD-66A77791D92C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E29C90D-5AD3-45B0-B5CD-66A77791D92C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E29C90D-5AD3-45B0-B5CD-66A77791D92C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E29C90D-5AD3-45B0-B5CD-66A77791D92C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
