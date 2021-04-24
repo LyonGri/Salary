@@ -9,13 +9,10 @@ namespace BusinessLogic
     /// </summary>
     public interface INachislator
     {
-        public int Salary { get; }
+        decimal Salary { get; }
         /// <summary>
         /// Начислить з/п
         /// </summary>
-        public static int Calculate ()
-        {
-            return 0;
-        }
+        //int Calculate();
     }
 }

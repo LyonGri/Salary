@@ -24,7 +24,7 @@ namespace BusinessLogic
 	/// <summary>
 	/// Класс описывает некоего работника
 	/// </summary>
-	public class Worker
+	public class Worker 
 	{
 		private string _name;
 
@@ -49,10 +49,10 @@ namespace BusinessLogic
 		}
 
 
-		private int _salary;
+		private decimal _salary;
 
 
-		public int Salary
+		public decimal Salary
 		{
 			get => _salary;
 			set
@@ -86,7 +86,10 @@ namespace BusinessLogic
 			TypeOfSalary = typeOfSalary;
         }
 
-		public Worker() : this ("Неизвестно", "Неизвестно", 0, TypeOfSalary.HourlyPayment) {}
+		/// <summary>
+		/// Конструктор со значениями по умолчанию 
+		/// </summary>
+		public Worker() : this ("Ибрагим", "Кузнецов", 0, TypeOfSalary.HourlyPayment) {}
 
 
 
@@ -108,7 +111,7 @@ namespace BusinessLogic
 			return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(expression.ToLower());
 		}
 
-
+		
 
 		//фуфло какое-то
 		//private int ReceivedSalary ()
@@ -126,7 +129,7 @@ namespace BusinessLogic
 		//			throw new ArgumentException("Недопустимый тип з/п");
 		//		};
 		//	}
-			
+
 		//}
 	}
 }
