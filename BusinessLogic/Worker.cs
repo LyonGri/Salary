@@ -28,6 +28,9 @@ namespace BusinessLogic
 	{
 		private string _name;
 
+		/// <summary>
+		/// Имя
+		/// </summary>
 		public string Name
 		{
 			get => _name;
@@ -39,6 +42,9 @@ namespace BusinessLogic
 
 		private string _surname;
 
+		/// <summary>
+		/// Фамилия
+		/// </summary>
 		public string Surname
 		{
 			get => _surname;
@@ -48,10 +54,11 @@ namespace BusinessLogic
 			}
 		}
 
-
 		private decimal _salary;
 
-
+		/// <summary>
+		/// Зарплата
+		/// </summary>
 		public decimal Salary
 		{
 			get => _salary;
@@ -61,12 +68,11 @@ namespace BusinessLogic
 			}
 		}
 
+		private TypeOfSalary _typeOfSalary;
 
-
-
-		private TypeOfSalary _typeOfSalary = TypeOfSalary.HourlyPayment;
-
-
+		/// <summary>
+		/// Тип начисляемой зарплаты
+		/// </summary>
 		public TypeOfSalary TypeOfSalary
 		{
 			get => _typeOfSalary;
@@ -76,23 +82,44 @@ namespace BusinessLogic
 			}
 		}
 
+		/// <summary>
+		/// Информация о работнике
+		/// </summary>
+		public string Info
+		{
+			get
+			{
+				return $"{Name} {Surname}\n" +
+						$"Тип начисляемой зарплаты: {TypeOfSalaryRus(TypeOfSalary)}\n" +
+						$"Зарплата после вычета НДФЛ: {Salary:C2}\n";
+			}
+		}
 
-
+		/// <summary>
+		/// Конструктор класса Worker
+		/// </summary>
+		/// <param name="name">Имя</param>
+		/// <param name="surname">Фамилия</param>
+		/// <param name="salary">Зарплата</param>
+		/// <param name="typeOfSalary">Тип зарплаты</param>
 		public Worker(string name, string surname, int salary, TypeOfSalary typeOfSalary)
-        {
+		{
 			Name = name;
 			Surname = surname;
 			Salary = salary;
 			TypeOfSalary = typeOfSalary;
-        }
+		}
 
 		/// <summary>
 		/// Конструктор со значениями по умолчанию 
 		/// </summary>
 		public Worker() : this ("Ибрагим", "Кузнецов", 0, TypeOfSalary.HourlyPayment) {}
 
-
-
+		/// <summary>
+		/// Проверка имени и фамилии
+		/// </summary>
+		/// <param name="expression">Проверяемое имя или фамилия</param>
+		/// <returns></returns>
 		private static string ValidateName(string expression)
 		{
 			if (expression == "" || expression == null)
@@ -111,25 +138,30 @@ namespace BusinessLogic
 			return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(expression.ToLower());
 		}
 
-		
+		/// <summary>
+		/// Руссификация типа начисляемой зарплаты
+		/// </summary>
+		/// <param name="typeOfSalary">Тип зарплаты</param>
+		/// <returns>Руссифицированная з/п</returns>
+		private static string TypeOfSalaryRus(TypeOfSalary typeOfSalary)
+		{
+			switch (typeOfSalary)
+			{
+				case TypeOfSalary.HourlyPayment:
+				{
+					return "Почасовая оплата";
+				}
+				case TypeOfSalary.TariffPayment:
+				{
+					return "Оплата по окладу";
+				}
+				case TypeOfSalary.RatePayment:
+				{
+					return "Оплата по ставке";
+				}
+			}
+			return "Донат";
+		}
 
-		//фуфло какое-то
-		//private int ReceivedSalary ()
-		//{
-		//	switch (TypeOfSalary)
-		//	{
-		//		case TypeOfSalary.HourlyPayment:
-		//		//case TypeOfSalary.TariffPayment:
-		//		//case TypeOfSalary.RatePayment:
-		//		{
-		//			return HourlyPayment.Calculate();
-		//		}
-		//		default:
-		//		{
-		//			throw new ArgumentException("Недопустимый тип з/п");
-		//		};
-		//	}
-
-		//}
 	}
 }

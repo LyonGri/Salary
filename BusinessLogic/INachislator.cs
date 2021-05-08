@@ -9,6 +9,9 @@ namespace BusinessLogic
     /// </summary>
     public interface INachislator
     {
+        /// <summary>
+        /// Зарплата
+        /// </summary>
         decimal Salary { get; }
         /// <summary>
         /// Начислить з/п
