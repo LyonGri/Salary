@@ -306,7 +306,7 @@ namespace CUI
 		/// Тело программы
 		/// </summary>
 		/// <param name="args"></param>
-		static void Main(string[] args)
+		public static void Main(string[] args)
 		{
 			Console.OutputEncoding = Encoding.Unicode;
 			var keyInput = true;

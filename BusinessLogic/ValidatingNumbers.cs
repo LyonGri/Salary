@@ -36,7 +36,12 @@ namespace BusinessLogic
 			}
 		}
 
-		public static Exception ExceptionGenerator(int lowerLimit)
+		/// <summary>
+		/// Исключения
+		/// </summary>
+		/// <param name="lowerLimit">передаваемый параметр для отображения в ошибке</param>
+		/// <returns>Исключение</returns>
+		private static Exception ExceptionGenerator(int lowerLimit)
         {
 			throw new ArgumentException($"Значение не может быть меньше {lowerLimit}!");
 		}

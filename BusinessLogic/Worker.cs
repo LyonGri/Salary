@@ -21,6 +21,7 @@ public enum TypeOfSalary
 
 namespace BusinessLogic
 {
+	[Serializable]
 	/// <summary>
 	/// Класс описывает некоего работника
 	/// </summary>
@@ -82,6 +83,7 @@ namespace BusinessLogic
 			}
 		}
 
+
 		/// <summary>
 		/// Информация о работнике
 		/// </summary>
@@ -90,8 +92,17 @@ namespace BusinessLogic
 			get
 			{
 				return $"{Name} {Surname}\n" +
-						$"Тип начисляемой зарплаты: {TypeOfSalaryRus(TypeOfSalary)}\n" +
+						$"Тип начисляемой зарплаты: {TypeOfSalaryRussian}\n" +
 						$"Зарплата после вычета НДФЛ: {Salary:C2}\n";
+			}
+		}
+
+
+		public string TypeOfSalaryRussian
+		{
+			get
+			{
+				return TypeOfSalaryRussification(TypeOfSalary);
 			}
 		}
 
@@ -143,7 +154,7 @@ namespace BusinessLogic
 		/// </summary>
 		/// <param name="typeOfSalary">Тип зарплаты</param>
 		/// <returns>Руссифицированная з/п</returns>
-		private static string TypeOfSalaryRus(TypeOfSalary typeOfSalary)
+		private static string TypeOfSalaryRussification(TypeOfSalary typeOfSalary)
 		{
 			switch (typeOfSalary)
 			{
