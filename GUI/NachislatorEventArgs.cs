@@ -11,32 +11,27 @@ namespace GUI
     /// <summary>
     /// Используется как аргумент для передачи данных в событиях
     /// </summary>
-    public class UserEventArgs : EventArgs
+    public class NachislatorEventArgs : EventArgs
     {
-        /// <summary>
-        /// Worker для передачи
-        /// </summary>
-        public readonly Worker SendingWorker;
+        private INachislator _sendingSalary;
 
         /// <summary>
-        /// Salary для передачи
+        /// INachislator для передачи
         /// </summary>
-        public readonly INachislator SendingSalary;
-
-        /// <summary>
-        /// Конструктор для передачи Worker
-        /// </summary>
-        /// <param name="sendingWorker">Worker</param>
-        public UserEventArgs(Worker sendingWorker)
+        public INachislator SendingSalary
         {
-            SendingWorker = sendingWorker;
+            get => _sendingSalary;
+            private set
+            {
+                _sendingSalary = value;
+            }
         }
 
         /// <summary>
         /// Конструктор для передачи Salary
         /// </summary>
         /// <param name="sendingSalary">Salary</param>
-        public UserEventArgs(INachislator sendingSalary)
+        public NachislatorEventArgs(INachislator sendingSalary)
         {
             SendingSalary = sendingSalary;
         }

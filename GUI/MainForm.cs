@@ -13,113 +13,193 @@ using System.Xml.Serialization;
 
 namespace GUI
 {
-    public partial class MainForm : Form
-    {
-        /// <summary>
-        /// Лист работников
-        /// </summary>
-        private List<Worker> _workerList = new List<Worker>();
+	/// <summary>
+	/// Основная форма
+	/// </summary>
+	public partial class MainForm : Form
+	{
+		/// <summary>
+		/// Лист работников
+		/// </summary>
+		private List<Worker> _workerList = new List<Worker>();
 
-        private XmlSerializer _xmlSerializer = new XmlSerializer(typeof(List<Worker>));
+		/// <summary>
+		/// XML сериализатор
+		/// </summary>
+		private XmlSerializer _xmlSerializer = new XmlSerializer(typeof(List<Worker>));
 
-        private const string _initialDirectory = @"E:\OOPfiles";
-        private string _path = _initialDirectory + @"\WorkerList.gld" ;
+		/// <summary>
+		/// Путь по умолчанию
+		/// </summary>
+		private const string _initialDirectory = @"E:\OOPfiles";
 
-        public MainForm()
+		/// <summary>
+		/// Файл по умолчанию
+		/// </summary>
+		private string _path = _initialDirectory + @"\WorkerList.gld" ;
+
+		/// <summary>
+		/// Текст для запроса
+		/// </summary>
+		private string _searchBoxDefaultText = "Введите запрос..." ;
+
+		/// <summary>
+		/// Инициализация компонентов
+		/// </summary>
+		public MainForm()
+		{
+			InitializeComponent();
+		}
+
+		/// <summary>
+		/// Кнопка добавлятор
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void AddWorker_Click(object sender, EventArgs e)
+		{
+			AddWorkerForm addWorkerForm = new AddWorkerForm();
+			addWorkerForm.SendDataFromFormEvent += new EventHandler<WorkerEventArgs>(AddWorkerEvent);
+			addWorkerForm.ShowDialog();
+		}
+
+
+		/// <summary>
+		/// Обработчик события получения данных из дочерней формы
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void AddWorkerEvent(object sender, WorkerEventArgs e)
+		{
+			_workerList.Add(e.SendingWorker);
+			ShowList();
+		}
+
+		/// <summary>
+		/// Кнопа удалятор
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void RemoveWorker_Click(object sender, EventArgs e)
+		{
+			var workerToRemove = DataGridWorkers.CurrentRow.DataBoundItem;
+			_workerList.Remove((Worker)workerToRemove);
+			ShowList();
+		}
+
+		/// <summary>
+		/// Кнопка сохранения файла
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void SaveButton_Click(object sender, EventArgs e)
+		{
+			var saveFileDialog = new SaveFileDialog();
+			saveFileDialog.Filter = "Text files(*.gld)|*.gld|All files(*.*)|*.*";
+			saveFileDialog.InitialDirectory = _initialDirectory;
+			if (saveFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				_path = saveFileDialog.FileName.ToString();
+			}
+			var file = new FileStream(_path, FileMode.Create, FileAccess.Write, FileShare.None);
+			_xmlSerializer.Serialize(file, _workerList);
+			file.Close();
+		}
+
+		/// <summary>
+		/// Кнопка загрузки файла
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void OpenButton_Click(object sender, EventArgs e)
+		{
+			var openFileDialog = new OpenFileDialog();
+			openFileDialog.Filter = "Text files(*.gld)|*.gld|All files(*.*)|*.*";
+			openFileDialog.InitialDirectory = _initialDirectory;
+			if (openFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				_path = openFileDialog.FileName.ToString();
+			}
+			var file = new FileStream(_path, FileMode.Open, FileAccess.Read, FileShare.None);
+			_workerList = (List<Worker>)_xmlSerializer.Deserialize(file);
+			file.Close();
+			ShowList();
+		}
+
+		/// <summary>
+		/// Вывод листа в DataGrid
+		/// </summary>
+		private void ShowList()
+		{
+			DataGridWorkers.DataSource = null;
+			DataGridWorkers.DataSource = _workerList;
+		}
+
+		/// <summary>
+		/// Событие изменения поля для поиска
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void SearchBox_TextChanged(object sender, EventArgs e)
+		{
+			if (SearchBox.Text != _searchBoxDefaultText)
+			{
+				var searchedWorkersList = new List<Worker>();
+				foreach (Worker worker in _workerList)
+				{
+					if (worker.SearchInfo.ToLower().Contains(SearchBox.Text.ToLower()))
+					{
+						searchedWorkersList.Add(worker);
+					}
+				}
+				DataGridWorkers.DataSource = null;
+				DataGridWorkers.DataSource = searchedWorkersList;
+			}
+		}
+
+		/// <summary>
+		/// Событие при активном поле для поиска 
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void SearchBox_Enter(object sender, EventArgs e)
+		{
+			if (SearchBox.Text == _searchBoxDefaultText)
+			{
+				SearchBox.Text = "";
+				SearchBox.ForeColor = Color.Black;
+			}
+		}
+
+		/// <summary>
+		/// событие когда поле для поиска не активно
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void SearchBox_Leave(object sender, EventArgs e)
         {
-            InitializeComponent();
-            DataGridWorkers.AutoGenerateColumns = false;
-            SaveButton.FlatAppearance.BorderSize = 0;
-            SaveButton.FlatStyle = FlatStyle.Flat;
-            OpenButton.FlatAppearance.BorderSize = 0;
-            OpenButton.FlatStyle = FlatStyle.Flat;
-            
-        }
+			if (SearchBox.Text == "")
+			{
+				SearchBox.Text = _searchBoxDefaultText;
+				SearchBox.ForeColor = Color.Gray;
+			}
+		}
 
-
-        private void AddWorker_Click(object sender, EventArgs e)
+		/// <summary>
+		/// Загрузка формы
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+        private void MainForm_Load(object sender, EventArgs e)
         {
-            //Создаем дочернюю форму
-            AddWorkerForm addWorkerForm = new AddWorkerForm();
-
-            //Подключение обработчика события в дочерней форме
-            addWorkerForm.SendDataFromFormEvent += new EventHandler<UserEventArgs>(AddWorkerEvent);
-
-            //Выводим ее для заполнения текстовых полей
-            addWorkerForm.ShowDialog();
-        }
-
-
-        //Обработчик события получения данных из дочерней формы
-        private void AddWorkerEvent(object sender, UserEventArgs e)
-        {
-            _workerList.Add(e.SendingWorker);
-            ShowList();
-        }
-
-        private void RemoveWorker_Click(object sender, EventArgs e)
-        {
-            var workerToRemove = DataGridWorkers.CurrentRow.DataBoundItem;
-            _workerList.Remove((Worker)workerToRemove);
-            ShowList();
-        }
-
-        /// <summary>
-        /// Кнопка сохранения
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void SaveButton_Click(object sender, EventArgs e)
-        {
-            var saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Text files(*.gld)|*.gld|All files(*.*)|*.*";
-            saveFileDialog.InitialDirectory = _initialDirectory;
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                _path = saveFileDialog.FileName.ToString();
-            }
-
-            //var xmlSerializer = new XmlSerializer(typeof(List<Worker>));
-            var file = new FileStream(_path, FileMode.Create, FileAccess.Write, FileShare.None);
-            _xmlSerializer.Serialize(file, _workerList);
-            file.Close();
-
-            //еще один способ
-            //var writer = new XmlSerializer(typeof(Worker));
-            //using (var file = File.Create(path))
-            //{
-            //    foreach(Worker worker in workerList)
-            //    {
-            //    writer.Serialize(file, worker);
-            //    }
-            //    file.Close();
-            //}
-        }
-        private void OpenButton_Click(object sender, EventArgs e)
-        {
-
-            var openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Text files(*.gld)|*.gld|All files(*.*)|*.*";
-            openFileDialog.InitialDirectory = _initialDirectory;
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                _path = openFileDialog.FileName.ToString();
-            }
-
-            var file = new FileStream(_path, FileMode.Open, FileAccess.Read, FileShare.None);
-            _workerList = (List<Worker>)_xmlSerializer.Deserialize(file);
-            file.Close();
-            ShowList();
-
-        }
-
-        /// <summary>
-        /// Вывод листа в DataGrid
-        /// </summary>
-        private void ShowList()
-        {
-            DataGridWorkers.DataSource = null;
-            DataGridWorkers.DataSource = _workerList;
-        }
+			DataGridWorkers.AutoGenerateColumns = false;
+			SearchBox.Text = _searchBoxDefaultText;
+			SearchBox.ForeColor = Color.Gray;
+			foreach (var button in Controls.OfType<Button>())
+			{
+				button.FlatAppearance.BorderSize = 0;
+				button.FlatStyle = FlatStyle.Flat;
+			}
+		}
     }
 }

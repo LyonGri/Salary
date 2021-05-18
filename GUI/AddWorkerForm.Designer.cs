@@ -47,7 +47,7 @@ namespace GUI
             // 
             // NameBox
             // 
-            this.NameBox.Location = new System.Drawing.Point(90, 23);
+            this.NameBox.Location = new System.Drawing.Point(90, 55);
             this.NameBox.Name = "NameBox";
             this.NameBox.Size = new System.Drawing.Size(138, 23);
             this.NameBox.TabIndex = 0;
@@ -55,7 +55,7 @@ namespace GUI
             // 
             // SurnameBox
             // 
-            this.SurnameBox.Location = new System.Drawing.Point(90, 56);
+            this.SurnameBox.Location = new System.Drawing.Point(90, 22);
             this.SurnameBox.Name = "SurnameBox";
             this.SurnameBox.Size = new System.Drawing.Size(138, 23);
             this.SurnameBox.TabIndex = 0;
@@ -73,7 +73,7 @@ namespace GUI
             // LabelName
             // 
             this.LabelName.AutoSize = true;
-            this.LabelName.Location = new System.Drawing.Point(6, 26);
+            this.LabelName.Location = new System.Drawing.Point(6, 58);
             this.LabelName.Name = "LabelName";
             this.LabelName.Size = new System.Drawing.Size(31, 15);
             this.LabelName.TabIndex = 2;
@@ -82,7 +82,7 @@ namespace GUI
             // LabelSurname
             // 
             this.LabelSurname.AutoSize = true;
-            this.LabelSurname.Location = new System.Drawing.Point(6, 59);
+            this.LabelSurname.Location = new System.Drawing.Point(6, 25);
             this.LabelSurname.Name = "LabelSurname";
             this.LabelSurname.Size = new System.Drawing.Size(58, 15);
             this.LabelSurname.TabIndex = 2;
@@ -112,11 +112,11 @@ namespace GUI
             this.groupBoxInformation.Controls.Add(this.RandomSurnameButton);
             this.groupBoxInformation.Controls.Add(this.RandomTypeOfSalaryButton);
             this.groupBoxInformation.Controls.Add(this.RandomNameButton);
-            this.groupBoxInformation.Controls.Add(this.LabelName);
-            this.groupBoxInformation.Controls.Add(this.NameBox);
             this.groupBoxInformation.Controls.Add(this.LabelTypeOfSalary);
             this.groupBoxInformation.Controls.Add(this.SurnameBox);
+            this.groupBoxInformation.Controls.Add(this.LabelName);
             this.groupBoxInformation.Controls.Add(this.LabelSurname);
+            this.groupBoxInformation.Controls.Add(this.NameBox);
             this.groupBoxInformation.Controls.Add(this.TypeOfSalaryBox);
             this.groupBoxInformation.Location = new System.Drawing.Point(12, 12);
             this.groupBoxInformation.Name = "groupBoxInformation";
@@ -129,7 +129,7 @@ namespace GUI
             // 
             this.RandomSurnameButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("RandomSurnameButton.BackgroundImage")));
             this.RandomSurnameButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.RandomSurnameButton.Location = new System.Drawing.Point(65, 56);
+            this.RandomSurnameButton.Location = new System.Drawing.Point(65, 22);
             this.RandomSurnameButton.Name = "RandomSurnameButton";
             this.RandomSurnameButton.Size = new System.Drawing.Size(24, 23);
             this.RandomSurnameButton.TabIndex = 5;
@@ -151,7 +151,7 @@ namespace GUI
             // 
             this.RandomNameButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("RandomNameButton.BackgroundImage")));
             this.RandomNameButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.RandomNameButton.Location = new System.Drawing.Point(65, 22);
+            this.RandomNameButton.Location = new System.Drawing.Point(65, 54);
             this.RandomNameButton.Name = "RandomNameButton";
             this.RandomNameButton.Size = new System.Drawing.Size(24, 23);
             this.RandomNameButton.TabIndex = 5;
@@ -160,23 +160,25 @@ namespace GUI
             // 
             // AllRandomButton
             // 
-            this.AllRandomButton.Location = new System.Drawing.Point(18, 140);
+            this.AllRandomButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("AllRandomButton.BackgroundImage")));
+            this.AllRandomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.AllRandomButton.Location = new System.Drawing.Point(12, 140);
             this.AllRandomButton.Name = "AllRandomButton";
-            this.AllRandomButton.Size = new System.Drawing.Size(99, 23);
+            this.AllRandomButton.Size = new System.Drawing.Size(24, 24);
             this.AllRandomButton.TabIndex = 5;
-            this.AllRandomButton.Text = "Лютый рандом";
             this.AllRandomButton.UseVisualStyleBackColor = true;
             // 
             // AddWorkerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(268, 178);
+            this.ClientSize = new System.Drawing.Size(268, 175);
             this.Controls.Add(this.AllRandomButton);
             this.Controls.Add(this.groupBoxInformation);
             this.Controls.Add(this.ButtonNext);
             this.Name = "AddWorkerForm";
             this.Text = "Начисление з/п";
+            this.Load += new System.EventHandler(this.AddWorkerForm_Load);
             this.groupBoxInformation.ResumeLayout(false);
             this.groupBoxInformation.PerformLayout();
             this.ResumeLayout(false);

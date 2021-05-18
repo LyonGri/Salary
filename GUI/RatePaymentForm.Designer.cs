@@ -1,7 +1,7 @@
 ﻿
 namespace GUI
 {
-    partial class HourlyPaymentForm
+    partial class RatePaymentForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,12 +29,12 @@ namespace GUI
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HourlyPaymentForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RatePaymentForm));
             this.groupBoxInformation = new System.Windows.Forms.GroupBox();
             this.RandomCostButton = new System.Windows.Forms.Button();
             this.RandomHoursButton = new System.Windows.Forms.Button();
             this.LabelHours = new System.Windows.Forms.Label();
-            this.HoursBox = new System.Windows.Forms.TextBox();
+            this.DaysBox = new System.Windows.Forms.TextBox();
             this.CostBox = new System.Windows.Forms.TextBox();
             this.LabelCost = new System.Windows.Forms.Label();
             this.ButtonNext = new System.Windows.Forms.Button();
@@ -47,21 +47,21 @@ namespace GUI
             this.groupBoxInformation.Controls.Add(this.RandomCostButton);
             this.groupBoxInformation.Controls.Add(this.RandomHoursButton);
             this.groupBoxInformation.Controls.Add(this.LabelHours);
-            this.groupBoxInformation.Controls.Add(this.HoursBox);
+            this.groupBoxInformation.Controls.Add(this.DaysBox);
             this.groupBoxInformation.Controls.Add(this.CostBox);
             this.groupBoxInformation.Controls.Add(this.LabelCost);
             this.groupBoxInformation.Location = new System.Drawing.Point(12, 12);
             this.groupBoxInformation.Name = "groupBoxInformation";
-            this.groupBoxInformation.Size = new System.Drawing.Size(200, 91);
+            this.groupBoxInformation.Size = new System.Drawing.Size(203, 91);
             this.groupBoxInformation.TabIndex = 7;
             this.groupBoxInformation.TabStop = false;
-            this.groupBoxInformation.Text = "Почасовая оплата";
+            this.groupBoxInformation.Text = "Оплата по ставке";
             // 
             // RandomCostButton
             // 
             this.RandomCostButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("RandomCostButton.BackgroundImage")));
             this.RandomCostButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.RandomCostButton.Location = new System.Drawing.Point(105, 55);
+            this.RandomCostButton.Location = new System.Drawing.Point(98, 55);
             this.RandomCostButton.Name = "RandomCostButton";
             this.RandomCostButton.Size = new System.Drawing.Size(24, 23);
             this.RandomCostButton.TabIndex = 8;
@@ -72,36 +72,36 @@ namespace GUI
             // 
             this.RandomHoursButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("RandomHoursButton.BackgroundImage")));
             this.RandomHoursButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.RandomHoursButton.Location = new System.Drawing.Point(126, 22);
+            this.RandomHoursButton.Location = new System.Drawing.Point(127, 21);
             this.RandomHoursButton.Name = "RandomHoursButton";
             this.RandomHoursButton.Size = new System.Drawing.Size(24, 23);
             this.RandomHoursButton.TabIndex = 8;
             this.RandomHoursButton.UseVisualStyleBackColor = true;
-            this.RandomHoursButton.Click += new System.EventHandler(this.RandomHoursButton_Click);
+            this.RandomHoursButton.Click += new System.EventHandler(this.RandomDaysButton_Click);
             // 
             // LabelHours
             // 
             this.LabelHours.AutoSize = true;
             this.LabelHours.Location = new System.Drawing.Point(6, 26);
             this.LabelHours.Name = "LabelHours";
-            this.LabelHours.Size = new System.Drawing.Size(108, 15);
+            this.LabelHours.Size = new System.Drawing.Size(102, 15);
             this.LabelHours.TabIndex = 2;
-            this.LabelHours.Text = "Отработано часов";
+            this.LabelHours.Text = "Отработано дней";
             // 
-            // HoursBox
+            // DaysBox
             // 
-            this.HoursBox.Location = new System.Drawing.Point(156, 23);
-            this.HoursBox.Name = "HoursBox";
-            this.HoursBox.Size = new System.Drawing.Size(34, 23);
-            this.HoursBox.TabIndex = 0;
-            this.HoursBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.HoursBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.HoursBox_KeyPress);
+            this.DaysBox.Location = new System.Drawing.Point(157, 22);
+            this.DaysBox.Name = "DaysBox";
+            this.DaysBox.Size = new System.Drawing.Size(34, 23);
+            this.DaysBox.TabIndex = 0;
+            this.DaysBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.DaysBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.DaysBox_KeyPress);
             // 
             // CostBox
             // 
-            this.CostBox.Location = new System.Drawing.Point(135, 56);
+            this.CostBox.Location = new System.Drawing.Point(128, 56);
             this.CostBox.Name = "CostBox";
-            this.CostBox.Size = new System.Drawing.Size(55, 23);
+            this.CostBox.Size = new System.Drawing.Size(63, 23);
             this.CostBox.TabIndex = 0;
             this.CostBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CostBox_KeyPress);
             // 
@@ -110,13 +110,13 @@ namespace GUI
             this.LabelCost.AutoSize = true;
             this.LabelCost.Location = new System.Drawing.Point(6, 59);
             this.LabelCost.Name = "LabelCost";
-            this.LabelCost.Size = new System.Drawing.Size(95, 15);
+            this.LabelCost.Size = new System.Drawing.Size(89, 15);
             this.LabelCost.TabIndex = 2;
-            this.LabelCost.Text = "Стоимость часа";
+            this.LabelCost.Text = "Стоимость дня";
             // 
             // ButtonNext
             // 
-            this.ButtonNext.Location = new System.Drawing.Point(137, 109);
+            this.ButtonNext.Location = new System.Drawing.Point(140, 109);
             this.ButtonNext.Name = "ButtonNext";
             this.ButtonNext.Size = new System.Drawing.Size(75, 23);
             this.ButtonNext.TabIndex = 6;
@@ -134,18 +134,18 @@ namespace GUI
             this.AllRandomButton.TabIndex = 8;
             this.AllRandomButton.UseVisualStyleBackColor = true;
             // 
-            // HourlyPaymentForm
+            // RatePaymentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(222, 145);
+            this.ClientSize = new System.Drawing.Size(226, 145);
             this.Controls.Add(this.AllRandomButton);
             this.Controls.Add(this.groupBoxInformation);
             this.Controls.Add(this.ButtonNext);
-            this.Name = "HourlyPaymentForm";
+            this.Name = "RatePaymentForm";
             this.Text = "Начисление з/п";
             this.Load += new System.EventHandler(this.HourlyPaymentForm_Load);
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.HoursBox_KeyPress);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.DaysBox_KeyPress);
             this.groupBoxInformation.ResumeLayout(false);
             this.groupBoxInformation.PerformLayout();
             this.ResumeLayout(false);
@@ -156,7 +156,7 @@ namespace GUI
 
         private System.Windows.Forms.GroupBox groupBoxInformation;
         private System.Windows.Forms.Label LabelHours;
-        private System.Windows.Forms.TextBox HoursBox;
+        private System.Windows.Forms.TextBox DaysBox;
         private System.Windows.Forms.TextBox CostBox;
         private System.Windows.Forms.Label LabelCost;
         private System.Windows.Forms.Button ButtonNext;

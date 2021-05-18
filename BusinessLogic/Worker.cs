@@ -97,7 +97,20 @@ namespace BusinessLogic
 			}
 		}
 
+		/// <summary>
+		/// Информация для поиска
+		/// </summary>
+		public string SearchInfo
+		{
+			get
+			{
+				return $"{Name} {Surname} {TypeOfSalaryRussian} {Salary}";
+			}
+		}
 
+		/// <summary>
+		/// Тип зарплаты на русском языке
+		/// </summary>
 		public string TypeOfSalaryRussian
 		{
 			get

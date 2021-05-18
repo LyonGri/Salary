@@ -17,12 +17,26 @@ namespace GUI
 		/// <summary>
 		/// Событие для передачи данных
 		/// </summary>
-		public event EventHandler<UserEventArgs> SendDataFromFormEvent;
+		public event EventHandler<WorkerEventArgs> SendDataFromFormEvent;
 
-		private const string hourlyPaymentItem = "Почасовая";
-		private const string tariffPaymentItem = "Оклад";
-		private const string ratePaymenttItem = "Ставка";
+		/// <summary>
+		/// Почасовая оплата
+		/// </summary>
+		private const string _hourlyPaymentItem = "Почасовая";
 
+		/// <summary>
+		/// Оклад
+		/// </summary>
+		private const string _tariffPaymentItem = "Оклад";
+
+		/// <summary>
+		/// Ставка
+		/// </summary>
+		private const string _ratePaymenttItem = "Ставка";
+
+		/// <summary>
+		/// Работник
+		/// </summary>
 		private Worker _worker = new Worker();
 
 		/// <summary>
@@ -31,17 +45,11 @@ namespace GUI
 		public AddWorkerForm()
 		{
 			InitializeComponent();
-			TypeOfSalaryBox.Items.Add(hourlyPaymentItem);
-			TypeOfSalaryBox.Items.Add(tariffPaymentItem);
-			TypeOfSalaryBox.Items.Add(ratePaymenttItem);
-			RandomNameButton.FlatAppearance.BorderSize = 0;
-			RandomNameButton.FlatStyle = FlatStyle.Flat;
-			RandomSurnameButton.FlatAppearance.BorderSize = 0;
-			RandomSurnameButton.FlatStyle = FlatStyle.Flat;
-			RandomTypeOfSalaryButton.FlatAppearance.BorderSize = 0;
-			RandomTypeOfSalaryButton.FlatStyle = FlatStyle.Flat;
+			TypeOfSalaryBox.Items.Add(_hourlyPaymentItem);
+			TypeOfSalaryBox.Items.Add(_tariffPaymentItem);
+			TypeOfSalaryBox.Items.Add(_ratePaymenttItem);
 
-#if !DEBUG
+			#if !DEBUG
 			{ 
 				RandomNameButton.Visible = false ;
 				RandomSurnameButton.Visible = false ;
@@ -49,99 +57,88 @@ namespace GUI
 				AllRandomButton.Visible = false ;
 
 			}
-#endif
+			#endif
 
-			AllRandomButton.Click += new EventHandler(RandomNameButton_Click);
-			AllRandomButton.Click += new EventHandler(RandomTypeOfSalaryButton_Click);
-			AllRandomButton.Click += new EventHandler(RandomSurnameButton_Click);
+			AllRandomButton.Click += RandomNameButton_Click;
+			AllRandomButton.Click += RandomTypeOfSalaryButton_Click;
+			AllRandomButton.Click += RandomSurnameButton_Click;
+
+			NameBox.TextChanged += ButtonEnabler_TextChanged;
+			SurnameBox.TextChanged += ButtonEnabler_TextChanged;
+			TypeOfSalaryBox.SelectedIndexChanged += ButtonEnabler_TextChanged;
 		}
 
+		/// <summary>
+		/// Кнопка для продолжения ввода
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void ButtonNext_Click(object sender, EventArgs e)
 		{
 			_worker.Name = NameBox.Text;
 			_worker.Surname = SurnameBox.Text;
 
-			//кривой момент, так как создается не нужная форма
-			//var paymentForm = new Form();
-
 			switch (TypeOfSalaryBox.Text)
 			{
-				case hourlyPaymentItem:
+				case _hourlyPaymentItem:
 				{
 					_worker.TypeOfSalary = TypeOfSalary.HourlyPayment;
 					var paymentForm = new HourlyPaymentForm();
-					paymentForm.SendDataFromFormEvent += new EventHandler<UserEventArgs>(AddWorkerSalaryEvent);
+					paymentForm.SendDataFromFormEvent += AddWorkerSalaryEvent;
 					paymentForm.ShowDialog();
 					break;
 				}
-				case tariffPaymentItem:
+				case _tariffPaymentItem:
 				{
 					_worker.TypeOfSalary = TypeOfSalary.TariffPayment;
 					var paymentForm = new TariffPaymentForm();
-					paymentForm.SendDataFromFormEvent += new EventHandler<UserEventArgs>(AddWorkerSalaryEvent);
+					paymentForm.SendDataFromFormEvent += AddWorkerSalaryEvent;
 					paymentForm.ShowDialog();
 					break;
 				}
-				case ratePaymenttItem:
+				case _ratePaymenttItem:
 				{
 					_worker.TypeOfSalary = TypeOfSalary.RatePayment;
+					var paymentForm = new RatePaymentForm();
+					paymentForm.SendDataFromFormEvent += AddWorkerSalaryEvent;
+					paymentForm.ShowDialog();
 					break;
 				}
 			}
 
-
-			//Подключение обработчика события в дочерней форме
-			//paymentForm.SendDataFromFormEvent += new EventHandler<UserEventArgs>(AddWorkerSalaryEvent);
-
-			//Выводим ее для заполнения текстовых полей
-			//paymentForm.ShowDialog();
-
 			if (SendDataFromFormEvent != null)
 			{
-				SendDataFromFormEvent(this, new UserEventArgs(_worker));
+				SendDataFromFormEvent(this, new WorkerEventArgs(_worker));
 			}
 
 			Close();
 		}
 
-		private void AddWorkerSalaryEvent(object sender, UserEventArgs e)
+		/// <summary>
+		/// Обработчик события получения данных из дочерней формы
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void AddWorkerSalaryEvent(object sender, NachislatorEventArgs e)
 		{
 			_worker.Salary = e.SendingSalary.Salary;
 		}
 
-		private void NameBox_TextChanged(object sender, EventArgs e)
-		{
-			//{
-			//    try
-			//    {
-			//        if (NameBox.Text == "" || NameBox.Text == null)
-			//        {
-			//            throw new ArgumentException("Это поле не должно быть пустым!");
-			//        }
-			//        const string letterPattern = @"[^а-я^ё^А-Я^Ё^-]";
-			//        const string hyphenPattern = @"-";
-			//        Regex letterRegex = new Regex(letterPattern);
-			//        Regex hyphenRegex = new Regex(hyphenPattern);
-			//        if (letterRegex.IsMatch(NameBox.Text.ToLower()) ||
-			//            hyphenRegex.Matches(NameBox.Text.ToLower()).Count > 1)
-			//        {
-			//            throw new ArgumentException("Поле заполнено некорректно.");
-			//        }
-			//    }
-			//    catch (Exception exception)
-			//    {
-			//        //var toolTip1 = new ToolTip();
-			//        //toolTip1.Show($"{exception.Message}", this.NameBox);
-			//        MessageBox.Show($"{exception.Message}");
-			//    }
-			//}
-		}
-
+		/// <summary>
+		/// Кнопка рандома имени
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void RandomNameButton_Click(object sender, EventArgs e)
 		{
 			NameBox.Text = Randomizer.GetRandomName();
 		}
 
+		/// <summary>
+		/// Рандом типа зарплаты
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void RandomTypeOfSalaryButton_Click(object sender, EventArgs e)
 		{
 			TypeOfSalaryBox.Text = TypeOfSalaryBox.
@@ -149,11 +146,21 @@ namespace GUI
 				ToString();
 		}
 
+		/// <summary>
+		/// Рандом фамилии
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void RandomSurnameButton_Click(object sender, EventArgs e)
 		{
 			SurnameBox.Text = Randomizer.GetRandomSurname();
 		}
 
+		/// <summary>
+		/// Обработчик ввода имени и фамилии
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void NameBox_KeyPress(object sender, KeyPressEventArgs e)
 		{
 			const string letterPattern = @"[^а-я^ё^А-Я^Ё^-]";
@@ -184,6 +191,50 @@ namespace GUI
 				{
 					e.Handled = true;
 				}
+			}
+		}
+
+		/// <summary>
+		/// Загрузка формы
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void AddWorkerForm_Load(object sender, EventArgs e)
+		{
+			ButtonNext.Enabled = false;
+			foreach (var button in groupBoxInformation.Controls.OfType<Button>())
+			{
+				buttonNiceLook(button);
+			}
+			buttonNiceLook(AllRandomButton);
+		}
+
+		/// <summary>
+		/// Наведение красоты у кнопок
+		/// </summary>
+		/// <param name="button"></param>
+		private void buttonNiceLook (Button button)
+		{
+			button.FlatAppearance.BorderSize = 0;
+			button.FlatStyle = FlatStyle.Flat;
+		}
+
+		/// <summary>
+		/// Делает кнопку активной, когда заполнены все поля
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void ButtonEnabler_TextChanged(object sender, EventArgs e)
+		{
+			if (NameBox.Text.Length > 0
+				&& SurnameBox.Text.Length > 0
+				&& TypeOfSalaryBox.SelectedIndex >= 0)
+			{
+				ButtonNext.Enabled = true;
+			}
+			else
+			{
+				ButtonNext.Enabled = false;
 			}
 		}
 	}

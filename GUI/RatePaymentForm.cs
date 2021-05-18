@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace GUI
 {
-    public partial class HourlyPaymentForm : Form
+    public partial class RatePaymentForm : Form
     {
         /// <summary>
         /// Событие для передачи данных
@@ -22,7 +22,7 @@ namespace GUI
         /// <summary>
         /// Конструктор формы
         /// </summary>
-        public HourlyPaymentForm()
+        public RatePaymentForm()
         {
             InitializeComponent();
             #if !DEBUG
@@ -33,11 +33,11 @@ namespace GUI
             }
             #endif
 
-            AllRandomButton.Click += RandomHoursButton_Click;
+            AllRandomButton.Click += RandomDaysButton_Click;
             AllRandomButton.Click += RandomCostButton_Click;
 
             ButtonNext.Enabled = false;
-            HoursBox.TextChanged += ButtonEnabler_TextChanged;
+            DaysBox.TextChanged += ButtonEnabler_TextChanged;
             CostBox.TextChanged += ButtonEnabler_TextChanged;
         }
 
@@ -48,24 +48,24 @@ namespace GUI
         /// <param name="e"></param>
         private void ButtonNext_Click(object sender, EventArgs e)
         {
-            var salary = new HourlyPayment();
-            salary.HoursWorked = Int32.Parse(HoursBox.Text);
-            salary.CostPerHour = Decimal.Parse(CostBox.Text);
+            var salary = new RatePayment();
+            salary.DaysWorked = Int32.Parse(DaysBox.Text);
+            salary.CostPerDay = Decimal.Parse(CostBox.Text);
             if (SendDataFromFormEvent != null)
             {
                 SendDataFromFormEvent(this, new NachislatorEventArgs(salary));
             }
             Close();
         }
-
+        
         /// <summary>
-        /// Рандом часов
+        /// Рандом дней
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void RandomHoursButton_Click(object sender, EventArgs e)
+        private void RandomDaysButton_Click(object sender, EventArgs e)
         {
-            HoursBox.Text = Randomizer.GetRandomIntInRange(100, 200).ToString();
+            DaysBox.Text = Randomizer.GetRandomIntInRange(10, 50).ToString();
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace GUI
         /// <param name="e"></param>
         private void RandomCostButton_Click(object sender, EventArgs e)
         {
-            CostBox.Text = Randomizer.GetRandomDecimalInRange(100, 500).ToString();
+            CostBox.Text = Randomizer.GetRandomDecimalInRange(1000, 2000).ToString();
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace GUI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void HoursBox_KeyPress(object sender, KeyPressEventArgs e)
+        private void DaysBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             const string letterPattern = @"[^0-9]";
             Regex letterRegex = new Regex(letterPattern);
@@ -172,7 +172,7 @@ namespace GUI
         /// <param name="e"></param>
         private void ButtonEnabler_TextChanged(object sender, EventArgs e)
         {
-            if (HoursBox.Text.Length > 0
+            if (DaysBox.Text.Length > 0
                 && CostBox.Text.Length > 0)
             {
                 ButtonNext.Enabled = true;
