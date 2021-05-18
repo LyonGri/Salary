@@ -8,27 +8,7 @@ using System.Windows.Forms;
 namespace GUI
 {
     /// <summary>
-    /// Информация о работниках
-    /// </summary>
-    public static class DataWorker
-    {
-        private static List<Worker> _workerList = new List<Worker>();
-
-        /// <summary>
-        /// Лист с работниками
-        /// </summary>
-        public static List<Worker> WorkerList
-        {
-            get => _workerList;
-            set
-            {
-                _workerList = value;
-            }
-        }
-    }
-
-    /// <summary>
-    /// Класс Program
+    /// пїЅпїЅпїЅпїЅпїЅ Program
     /// </summary>
     internal static class Program
     {

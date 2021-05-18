@@ -61,10 +61,12 @@ namespace BusinessLogic
 		/// </summary>
 		public decimal Salary
 		{
+			//TODO:
 			get => DaysWorked * Tariff / WorkingDaysInMonth * 87 / 100;
 
 		}
 
+		//TODO: XML комментарии?
 		/// <summary>
 		/// Конструктор
 		/// </summary>
@@ -84,7 +86,7 @@ namespace BusinessLogic
 		public TariffPayment() : this(1, 1, 1) { }
 		
 		
-		
+		//TODO: XML комментарии?
 		private static void ValidateDaysWorked(int daysWorked, int workingDaysInMonth)
 		{
 			ValidatingNumbers.ValidateIntNumber(daysWorked);

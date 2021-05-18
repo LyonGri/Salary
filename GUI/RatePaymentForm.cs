@@ -48,9 +48,11 @@ namespace GUI
         /// <param name="e"></param>
         private void ButtonNext_Click(object sender, EventArgs e)
         {
-            var salary = new RatePayment();
-            salary.DaysWorked = Int32.Parse(DaysBox.Text);
-            salary.CostPerDay = Decimal.Parse(CostBox.Text);
+            var salary = new RatePayment
+            {
+                DaysWorked = Int32.Parse(DaysBox.Text), 
+                CostPerDay = Decimal.Parse(CostBox.Text)
+            };
             if (SendDataFromFormEvent != null)
             {
                 SendDataFromFormEvent(this, new NachislatorEventArgs(salary));

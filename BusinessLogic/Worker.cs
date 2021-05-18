@@ -21,10 +21,10 @@ public enum TypeOfSalary
 
 namespace BusinessLogic
 {
-	[Serializable]
 	/// <summary>
 	/// Класс описывает некоего работника
 	/// </summary>
+	[Serializable]
 	public class Worker 
 	{
 		private string _name;
@@ -184,6 +184,8 @@ namespace BusinessLogic
 					return "Оплата по ставке";
 				}
 			}
+
+			//TODO: exception
 			return "Донат";
 		}
 

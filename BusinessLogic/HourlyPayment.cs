@@ -44,7 +44,7 @@ namespace BusinessLogic
 		/// </summary>
 		public decimal Salary
 		{
-			get => HoursWorked * CostPerHour * 87 / 100;
+			get => HoursWorked * CostPerHour * 0.87m;
 		}
 
 		/// <summary>

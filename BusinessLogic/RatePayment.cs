@@ -46,9 +46,11 @@ namespace BusinessLogic
 		/// </summary>
 		public decimal Salary
 		{
+			//TODO:
 			get => DaysWorked * CostPerDay * 87 / 100;
 		}
 
+		//TODO: XML комментарии?
 		/// <summary>
 		/// Конструктор
 		/// </summary>

@@ -28,6 +28,7 @@ namespace GUI
 		/// </summary>
 		private XmlSerializer _xmlSerializer = new XmlSerializer(typeof(List<Worker>));
 
+		//TODO:
 		/// <summary>
 		/// Путь по умолчанию
 		/// </summary>
@@ -59,7 +60,7 @@ namespace GUI
 		private void AddWorker_Click(object sender, EventArgs e)
 		{
 			AddWorkerForm addWorkerForm = new AddWorkerForm();
-			addWorkerForm.SendDataFromFormEvent += new EventHandler<WorkerEventArgs>(AddWorkerEvent);
+			addWorkerForm.SendDataFromFormEvent += AddWorkerEvent;
 			addWorkerForm.ShowDialog();
 		}
 
@@ -94,10 +95,12 @@ namespace GUI
 		/// <param name="e"></param>
 		private void SaveButton_Click(object sender, EventArgs e)
 		{
-			var saveFileDialog = new SaveFileDialog();
-			saveFileDialog.Filter = "Text files(*.gld)|*.gld|All files(*.*)|*.*";
-			saveFileDialog.InitialDirectory = _initialDirectory;
-			if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            var saveFileDialog = new SaveFileDialog
+            {
+                Filter = "Text files(*.gld)|*.gld|All files(*.*)|*.*", 
+                InitialDirectory = _initialDirectory
+            };
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
 			{
 				_path = saveFileDialog.FileName.ToString();
 			}
@@ -113,10 +116,12 @@ namespace GUI
 		/// <param name="e"></param>
 		private void OpenButton_Click(object sender, EventArgs e)
 		{
-			var openFileDialog = new OpenFileDialog();
-			openFileDialog.Filter = "Text files(*.gld)|*.gld|All files(*.*)|*.*";
-			openFileDialog.InitialDirectory = _initialDirectory;
-			if (openFileDialog.ShowDialog() == DialogResult.OK)
+            var openFileDialog = new OpenFileDialog
+            {
+                Filter = "Text files(*.gld)|*.gld|All files(*.*)|*.*", 
+                InitialDirectory = _initialDirectory
+            };
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
 			{
 				_path = openFileDialog.FileName.ToString();
 			}
@@ -163,13 +168,12 @@ namespace GUI
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
 		private void SearchBox_Enter(object sender, EventArgs e)
-		{
-			if (SearchBox.Text == _searchBoxDefaultText)
-			{
-				SearchBox.Text = "";
-				SearchBox.ForeColor = Color.Black;
-			}
-		}
+        {
+            if (SearchBox.Text != _searchBoxDefaultText) return;
+
+            SearchBox.Text = "";
+            SearchBox.ForeColor = Color.Black;
+        }
 
 		/// <summary>
 		/// событие когда поле для поиска не активно
@@ -178,12 +182,11 @@ namespace GUI
 		/// <param name="e"></param>
 		private void SearchBox_Leave(object sender, EventArgs e)
         {
-			if (SearchBox.Text == "")
-			{
-				SearchBox.Text = _searchBoxDefaultText;
-				SearchBox.ForeColor = Color.Gray;
-			}
-		}
+            if (SearchBox.Text != "") return;
+
+            SearchBox.Text = _searchBoxDefaultText;
+            SearchBox.ForeColor = Color.Gray;
+        }
 
 		/// <summary>
 		/// Загрузка формы

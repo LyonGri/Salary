@@ -106,12 +106,9 @@ namespace GUI
 				}
 			}
 
-			if (SendDataFromFormEvent != null)
-			{
-				SendDataFromFormEvent(this, new WorkerEventArgs(_worker));
-			}
+            SendDataFromFormEvent?.Invoke(this, new WorkerEventArgs(_worker));
 
-			Close();
+            Close();
 		}
 
 		/// <summary>
@@ -168,30 +165,22 @@ namespace GUI
 			Regex letterRegex = new Regex(letterPattern);
 			Regex hyphenRegex = new Regex(hyphenPattern);
 			if (hyphenRegex.Matches(NameBox.Text).Count < 1)
-			{
-				if (!letterRegex.IsMatch(e.KeyChar.ToString())
-					|| e.KeyChar == (char)Keys.Back)
-				{
-					return;
-				}
-				else
-				{
-					e.Handled = true;
-				}
-			}
+            {
+                if (letterRegex.IsMatch(e.KeyChar.ToString()) 
+                    && e.KeyChar != (char) Keys.Back)
+                {
+                    e.Handled = true;
+                }
+            }
 			else
-			{
-				if ((!letterRegex.IsMatch(e.KeyChar.ToString())
-					&& !hyphenRegex.IsMatch(e.KeyChar.ToString()))
-					|| e.KeyChar == (char)Keys.Back)
-				{
-					return;
-				}
-				else
-				{
-					e.Handled = true;
-				}
-			}
+            {
+                if ((letterRegex.IsMatch(e.KeyChar.ToString()) 
+                     || hyphenRegex.IsMatch(e.KeyChar.ToString())) 
+                    && e.KeyChar != (char) Keys.Back)
+                {
+                    e.Handled = true;
+                }
+            }
 		}
 
 		/// <summary>
@@ -225,17 +214,10 @@ namespace GUI
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
 		private void ButtonEnabler_TextChanged(object sender, EventArgs e)
-		{
-			if (NameBox.Text.Length > 0
-				&& SurnameBox.Text.Length > 0
-				&& TypeOfSalaryBox.SelectedIndex >= 0)
-			{
-				ButtonNext.Enabled = true;
-			}
-			else
-			{
-				ButtonNext.Enabled = false;
-			}
+        {
+            ButtonNext.Enabled = NameBox.Text.Length > 0
+                                 && SurnameBox.Text.Length > 0
+                                 && TypeOfSalaryBox.SelectedIndex >= 0;
 		}
 	}
 }
