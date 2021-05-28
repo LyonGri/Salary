@@ -54,11 +54,13 @@ namespace GUI
 		/// <param name="e"></param>
 		private void ButtonNext_Click(object sender, EventArgs e)
 		{
-			var salary = new TariffPayment();
-			salary.WorkingDaysInMonth = Int32.Parse(WorkingDaysBox.Text);
-			salary.DaysWorked = Int32.Parse(WorkedDaysBox.Text);
-			salary.Tariff = Decimal.Parse(CostBox.Text);
-			SendDataFromFormEvent?.Invoke(this, new NachislatorEventArgs(salary));
+            var salary = new TariffPayment
+            {
+                WorkingDaysInMonth = Int32.Parse(WorkingDaysBox.Text),
+                DaysWorked = Int32.Parse(WorkedDaysBox.Text),
+                Tariff = Decimal.Parse(CostBox.Text)
+            };
+            SendDataFromFormEvent?.Invoke(this, new NachislatorEventArgs(salary));
 			Close();
 		}
 
@@ -159,6 +161,8 @@ namespace GUI
 			WorkedDaysBox.Text = "";
 		}
 
+		 //TODO: RSDN
+		 //TODO: Duplication
 		/// <summary>
 		/// Наведение красоты у кнопок
 		/// </summary>

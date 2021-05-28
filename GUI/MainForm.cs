@@ -23,12 +23,11 @@ namespace GUI
 		/// </summary>
 		private List<Worker> _workerList = new List<Worker>();
 
+		//TODO:
 		/// <summary>
 		/// XML сериализатор
 		/// </summary>
 		private XmlSerializer _xmlSerializer = new XmlSerializer(typeof(List<Worker>));
-
-		//TODO: + (тут были дефолтные пути)
 
 		/// <summary>
 		/// Текст для запроса
@@ -121,7 +120,7 @@ namespace GUI
 				var file = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.None);
 				try
                 {
-				_workerList = (List<Worker>)_xmlSerializer.Deserialize(file);
+				    _workerList = (List<Worker>)_xmlSerializer.Deserialize(file);
                 }
 				catch
                 {

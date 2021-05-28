@@ -28,6 +28,7 @@ namespace GUI
 			ControlBox = false;
 			MaximizeBox = false;
 		}
+
 		/// <summary>
 		/// Проверка ввода часов
 		/// </summary>
@@ -58,6 +59,7 @@ namespace GUI
 			Regex mainRegex = new Regex(mainPattern);
 			Regex commaRegex = new Regex(commaPattern);
 			Regex afterCommaRegex = new Regex(afterCommaPattern);
+			//TODO:
 			if (commaRegex.Matches(((TextBoxBase)sender).Text).Count < 1)
 			{
                 if (mainRegex.IsMatch(e.KeyChar.ToString())
@@ -78,5 +80,10 @@ namespace GUI
             }
 		}
 
-	}
+		//TODO:
+        protected virtual void OnSendDataFromFormEvent(NachislatorEventArgs e)
+        {
+            SendDataFromFormEvent?.Invoke(this, e);
+        }
+    }
 }

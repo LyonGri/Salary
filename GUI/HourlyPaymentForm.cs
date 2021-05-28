@@ -52,10 +52,12 @@ namespace GUI
 		/// <param name="e"></param>
 		private void ButtonNext_Click(object sender, EventArgs e)
 		{
-			var salary = new HourlyPayment();
-			salary.HoursWorked = Int32.Parse(HoursBox.Text);
-			salary.CostPerHour = Decimal.Parse(CostBox.Text);
-			SendDataFromFormEvent?.Invoke(this, new NachislatorEventArgs(salary));
+            var salary = new HourlyPayment
+            {
+                HoursWorked = Int32.Parse(HoursBox.Text), 
+                CostPerHour = Decimal.Parse(CostBox.Text)
+            };
+            SendDataFromFormEvent?.Invoke(this, new NachislatorEventArgs(salary));
 			Close();
 		}
 
@@ -79,6 +81,8 @@ namespace GUI
 			CostBox.Text = Randomizer.GetRandomDecimalInRange(100, 500).ToString();
 		}
 
+		//TODO: RSDN naming
+		//TODO: Duplication
 		/// <summary>
 		/// Наведение красоты у кнопок
 		/// </summary>

@@ -40,7 +40,7 @@ namespace GUI
 		/// <summary>
 		/// Работник
 		/// </summary>
-		private Worker _worker = new Worker();
+		private readonly Worker _worker = new Worker();
 
 		/// <summary>
 		/// Конструктор формы
@@ -196,13 +196,17 @@ namespace GUI
 		private void AddWorkerForm_Load(object sender, EventArgs e)
 		{
 			ButtonNext.Enabled = false;
-			foreach (var button in groupBoxInformation.Controls.OfType<Button>())
+			//TODO: Duplication
+            var tmpControls = groupBoxInformation.Controls.OfType<Button>().ToList();
+			tmpControls.Add(AllRandomButton);
+
+			foreach (var button in tmpControls)
 			{
 				buttonNiceLook(button);
 			}
-			buttonNiceLook(AllRandomButton);
 		}
 
+		//TODO: Duplication
 		/// <summary>
 		/// Наведение красоты у кнопок
 		/// </summary>
@@ -212,6 +216,7 @@ namespace GUI
 			button.FlatAppearance.BorderSize = 0;
 			button.FlatStyle = FlatStyle.Flat;
 		}
+
 
 		/// <summary>
 		/// Делает кнопку активной, когда заполнены все поля

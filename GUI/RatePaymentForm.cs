@@ -16,13 +16,8 @@ namespace GUI
 	/// Форма оплаты по ставке
 	/// </summary>
 	public partial class RatePaymentForm : PaymentFormBase
-	{
-		/// <summary>
-		/// Событие для передачи данных
-		/// </summary>
-		public event EventHandler<NachislatorEventArgs> SendDataFromFormEvent;
-
-		/// <summary>
+	{ 
+        /// <summary>
 		/// Конструктор формы
 		/// </summary>
 		public RatePaymentForm()
@@ -56,7 +51,7 @@ namespace GUI
 				DaysWorked = Int32.Parse(DaysBox.Text), 
 				CostPerDay = Decimal.Parse(CostBox.Text)
 			};
-            SendDataFromFormEvent?.Invoke(this, new NachislatorEventArgs(salary));
+            OnSendDataFromFormEvent(new NachislatorEventArgs(salary));
             Close();
 		}
 		
@@ -80,6 +75,7 @@ namespace GUI
 			CostBox.Text = Randomizer.GetRandomDecimalInRange(1000, 2000).ToString();
 		}
 
+		 //TODO: RSDN
 		/// <summary>
 		/// Наведение красоты у кнопок
 		/// </summary>
