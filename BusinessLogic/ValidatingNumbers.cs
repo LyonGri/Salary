@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic 
 {
-	//TODO: XML комментарии?
+	//TODO: XML комментарии? +
+	/// <summary>
+	/// Класс для проверки числовых значений
+	/// </summary>
 	public static class ValidatingNumbers 
 	{
 

@@ -78,7 +78,7 @@ namespace BusinessLogic
 		/// <returns>Десятичное число</returns>
 		public static decimal GetRandomDecimalInRange(int minimumValue, int maximumValue)
 		{
-			return Convert.ToDecimal( _random.Next(minimumValue*100, maximumValue*100) * 0.01);
+			return Convert.ToDecimal( _random.Next(minimumValue*100, maximumValue*100) * 0.01m);
 		}
 
 		/// <summary>

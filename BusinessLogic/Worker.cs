@@ -184,9 +184,8 @@ namespace BusinessLogic
 					return "Оплата по ставке";
 				}
 			}
-
-			//TODO: exception
-			return "Донат";
+			//TODO: exception +
+			throw new Exception("Не известный тип данных");
 		}
 
 	}

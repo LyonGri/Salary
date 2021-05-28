@@ -8,7 +8,7 @@ using System.Windows.Forms;
 namespace GUI
 {
     /// <summary>
-    /// ����� Program
+    /// Class Program
     /// </summary>
     internal static class Program
     {

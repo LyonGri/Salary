@@ -14,7 +14,7 @@ namespace BusinessLogic
 		private int _daysWorked;
 
 		/// <summary>
-		/// Дни часы
+		/// Отработано дней
 		/// </summary>
 		public int DaysWorked
 		{
@@ -46,16 +46,16 @@ namespace BusinessLogic
 		/// </summary>
 		public decimal Salary
 		{
-			//TODO:
-			get => DaysWorked * CostPerDay * 87 / 100;
+			//TODO: +
+			get => DaysWorked * CostPerDay * 0.87m;
 		}
 
-		//TODO: XML комментарии?
+		//TODO: XML комментарии? +
 		/// <summary>
 		/// Конструктор
 		/// </summary>
-		/// <param name="hoursWorked">Количество отработанных дней</param>
-		/// <param name="costPerHour">Стоимость одного дня работы</param>
+		/// <param name="daysWorked">Количество отработанных дней</param>
+		/// <param name="costPerDay">Стоимость одного дня работы</param>
 		public RatePayment(int daysWorked, decimal costPerDay)
 		{
 			DaysWorked = daysWorked;

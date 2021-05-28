@@ -95,7 +95,7 @@ namespace GUI
             this.HoursBox.Size = new System.Drawing.Size(34, 23);
             this.HoursBox.TabIndex = 0;
             this.HoursBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.HoursBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.HoursBox_KeyPress);
+            this.HoursBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.IntegerBox_KeyPress);
             // 
             // CostBox
             // 
@@ -145,7 +145,7 @@ namespace GUI
             this.Name = "HourlyPaymentForm";
             this.Text = "Начисление з/п";
             this.Load += new System.EventHandler(this.HourlyPaymentForm_Load);
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.HoursBox_KeyPress);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.IntegerBox_KeyPress);
             this.groupBoxInformation.ResumeLayout(false);
             this.groupBoxInformation.PerformLayout();
             this.ResumeLayout(false);

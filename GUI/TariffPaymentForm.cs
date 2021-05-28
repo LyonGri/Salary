@@ -12,7 +12,10 @@ using System.Windows.Forms;
 
 namespace GUI
 {
-	public partial class TariffPaymentForm : Form
+	/// <summary>
+	/// Форма оплаты по окладу
+	/// </summary>
+	public partial class TariffPaymentForm : PaymentFormBase
 	{
 		/// <summary>
 		/// Событие для передачи данных
@@ -27,7 +30,8 @@ namespace GUI
 			InitializeComponent();
 			#if !DEBUG
 			{
-				RandomHoursButton.Visible = false;
+				RandomMounthButton.Visible = false;
+				RandomDaysButton.Visible = false;
 				RandomCostButton.Visible = false;
 				AllRandomButton.Visible = false;
 			}
@@ -54,10 +58,7 @@ namespace GUI
 			salary.WorkingDaysInMonth = Int32.Parse(WorkingDaysBox.Text);
 			salary.DaysWorked = Int32.Parse(WorkedDaysBox.Text);
 			salary.Tariff = Decimal.Parse(CostBox.Text);
-			if (SendDataFromFormEvent != null)
-			{
-				SendDataFromFormEvent(this, new NachislatorEventArgs(salary));
-			}
+			SendDataFromFormEvent?.Invoke(this, new NachislatorEventArgs(salary));
 			Close();
 		}
 
@@ -83,69 +84,6 @@ namespace GUI
 		}
 
 		/// <summary>
-		/// Проверка ввода часов
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void HoursBox_KeyPress(object sender, KeyPressEventArgs e)
-		{
-			const string letterPattern = @"[^0-9]";
-			Regex letterRegex = new Regex(letterPattern);
-
-			if (!letterRegex.IsMatch(e.KeyChar.ToString())
-				|| e.KeyChar == (char)Keys.Back)
-			{
-				return;
-			}
-			else
-			{
-				e.Handled = true;
-			}
-
-		}
-
-		/// <summary>
-		/// Проверка ввода стоимости
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void CostBox_KeyPress(object sender, KeyPressEventArgs e)
-		{
-			const string mainPattern = @"[^,0-9]";
-			const string commaPattern = @",";
-			const string afterCommaPattern = @"\,\d\d+";
-			Regex mainRegex = new Regex(mainPattern);
-			Regex commaRegex = new Regex(commaPattern);
-			Regex afterCommaRegex = new Regex(afterCommaPattern);
-			if (commaRegex.Matches(CostBox.Text).Count < 1)
-			{
-				if (!mainRegex.IsMatch(e.KeyChar.ToString())
-					|| e.KeyChar == (char)Keys.Back)
-				{
-					return;
-				}
-				else
-				{
-					e.Handled = true;
-				}
-			}
-			else
-			{
-				if ((!mainRegex.IsMatch(e.KeyChar.ToString())
-					&& !commaRegex.IsMatch(e.KeyChar.ToString()))
-					&& !afterCommaRegex.IsMatch(CostBox.Text)
-					|| e.KeyChar == (char)Keys.Back)
-				{
-					return;
-				}
-				else
-				{
-					e.Handled = true;
-				}
-			}
-		}
-
-		/// <summary>
 		/// Расчет числа рабочих дней
 		/// </summary>
 		/// <param name="mounth">Номер месяца</param>
@@ -153,7 +91,6 @@ namespace GUI
 		private static int GetBusinessDays(int mounth)
 		{
 			//расчет без учета праздников
-
 			DateTime startDay = new DateTime(2021, mounth+1, 1);
 			DateTime endDay = startDay.AddMonths(1).AddDays(-1);
 
@@ -207,15 +144,8 @@ namespace GUI
 		/// <param name="e"></param>
 		private void ButtonEnabler_TextChanged(object sender, EventArgs e)
 		{
-			if (WorkedDaysBox.Text.Length > 0
-				&& CostBox.Text.Length > 0)
-			{
-				ButtonNext.Enabled = true;
-			}
-			else
-			{
-				ButtonNext.Enabled = false;
-			}
+			ButtonNext.Enabled = WorkedDaysBox.Text.Length > 0
+									&& CostBox.Text.Length > 0;
 		}
 
 		/// <summary>
@@ -253,10 +183,15 @@ namespace GUI
 			buttonNiceLook(AllRandomButton);
 		}
 
-        private void RandomMounthButton_Click(object sender, EventArgs e)
-        {
+		/// <summary>
+		/// Рандом месяца
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void RandomMounthButton_Click(object sender, EventArgs e)
+		{
 			MonthBox.SelectedIndex = Randomizer.GetRandomIntInRange(0, MonthBox.Items.Count);
 			WorkedDaysBox.Enabled = true;
 		}
-    }
+	}
 }

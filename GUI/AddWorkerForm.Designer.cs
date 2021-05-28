@@ -172,10 +172,12 @@ namespace GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(268, 175);
             this.Controls.Add(this.AllRandomButton);
             this.Controls.Add(this.groupBoxInformation);
             this.Controls.Add(this.ButtonNext);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "AddWorkerForm";
             this.Text = "Начисление з/п";
             this.Load += new System.EventHandler(this.AddWorkerForm_Load);

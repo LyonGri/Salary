@@ -176,7 +176,7 @@ namespace GUI
             this.WorkingDaysBox.Size = new System.Drawing.Size(37, 23);
             this.WorkingDaysBox.TabIndex = 0;
             this.WorkingDaysBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.WorkingDaysBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.HoursBox_KeyPress);
+            this.WorkingDaysBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.IntegerBox_KeyPress);
             // 
             // WorkedDaysBox
             // 
@@ -186,7 +186,7 @@ namespace GUI
             this.WorkedDaysBox.TabIndex = 0;
             this.WorkedDaysBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.WorkedDaysBox.TextChanged += new System.EventHandler(this.WorkedDaysBox_TextChanged);
-            this.WorkedDaysBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.HoursBox_KeyPress);
+            this.WorkedDaysBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.IntegerBox_KeyPress);
             // 
             // ButtonNext
             // 
@@ -219,7 +219,7 @@ namespace GUI
             this.Name = "TariffPaymentForm";
             this.Text = "Начисление з/п";
             this.Load += new System.EventHandler(this.TariffPaymentForm_Load);
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.HoursBox_KeyPress);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.IntegerBox_KeyPress);
             this.groupBoxInformation.ResumeLayout(false);
             this.groupBoxInformation.PerformLayout();
             this.ResumeLayout(false);

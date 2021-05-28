@@ -29,7 +29,7 @@ namespace GUI
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.groupDataGrid = new System.Windows.Forms.GroupBox();
             this.DataGridWorkers = new System.Windows.Forms.DataGridView();
@@ -55,7 +55,7 @@ namespace GUI
             this.groupDataGrid.Controls.Add(this.DataGridWorkers);
             this.groupDataGrid.Location = new System.Drawing.Point(12, 36);
             this.groupDataGrid.Name = "groupDataGrid";
-            this.groupDataGrid.Size = new System.Drawing.Size(430, 310);
+            this.groupDataGrid.Size = new System.Drawing.Size(428, 310);
             this.groupDataGrid.TabIndex = 1;
             this.groupDataGrid.TabStop = false;
             this.groupDataGrid.Text = "Информация о заработной плате работников";
@@ -105,9 +105,9 @@ namespace GUI
             // salary
             // 
             this.salary.DataPropertyName = "Salary";
-            dataGridViewCellStyle2.Format = "C2";
-            dataGridViewCellStyle2.NullValue = null;
-            this.salary.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Format = "C2";
+            dataGridViewCellStyle1.NullValue = null;
+            this.salary.DefaultCellStyle = dataGridViewCellStyle1;
             this.salary.HeaderText = "Зарплата (вычет НДФЛ)";
             this.salary.Name = "salary";
             this.salary.ReadOnly = true;
@@ -161,7 +161,7 @@ namespace GUI
             // 
             this.SearchBox.Location = new System.Drawing.Point(159, 6);
             this.SearchBox.Name = "SearchBox";
-            this.SearchBox.Size = new System.Drawing.Size(283, 23);
+            this.SearchBox.Size = new System.Drawing.Size(281, 23);
             this.SearchBox.TabIndex = 3;
             this.SearchBox.TextChanged += new System.EventHandler(this.SearchBox_TextChanged);
             this.SearchBox.Enter += new System.EventHandler(this.SearchBox_Enter);
@@ -194,9 +194,9 @@ namespace GUI
             this.FindPicture.BackColor = System.Drawing.Color.White;
             this.FindPicture.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("FindPicture.BackgroundImage")));
             this.FindPicture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.FindPicture.Location = new System.Drawing.Point(421, 8);
+            this.FindPicture.Location = new System.Drawing.Point(420, 9);
             this.FindPicture.Name = "FindPicture";
-            this.FindPicture.Size = new System.Drawing.Size(19, 19);
+            this.FindPicture.Size = new System.Drawing.Size(17, 17);
             this.FindPicture.TabIndex = 5;
             this.FindPicture.TabStop = false;
             // 
@@ -204,7 +204,8 @@ namespace GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(453, 352);
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClientSize = new System.Drawing.Size(452, 352);
             this.Controls.Add(this.FindPicture);
             this.Controls.Add(this.SearchBox);
             this.Controls.Add(this.RemoveWorker);

@@ -28,16 +28,7 @@ namespace GUI
 		/// </summary>
 		private XmlSerializer _xmlSerializer = new XmlSerializer(typeof(List<Worker>));
 
-		//TODO:
-		/// <summary>
-		/// Путь по умолчанию
-		/// </summary>
-		private const string _initialDirectory = @"E:\OOPfiles";
-
-		/// <summary>
-		/// Файл по умолчанию
-		/// </summary>
-		private string _path = _initialDirectory + @"\WorkerList.gld" ;
+		//TODO: + (тут были дефолтные пути)
 
 		/// <summary>
 		/// Текст для запроса
@@ -50,6 +41,8 @@ namespace GUI
 		public MainForm()
 		{
 			InitializeComponent();
+			FormBorderStyle = FormBorderStyle.FixedDialog;
+			MaximizeBox = false;
 		}
 
 		/// <summary>
@@ -83,9 +76,12 @@ namespace GUI
 		/// <param name="e"></param>
 		private void RemoveWorker_Click(object sender, EventArgs e)
 		{
-			var workerToRemove = DataGridWorkers.CurrentRow.DataBoundItem;
-			_workerList.Remove((Worker)workerToRemove);
-			ShowList();
+			if (DataGridWorkers.CurrentRow is not null)
+			{
+				var workerToRemove = DataGridWorkers.CurrentRow.DataBoundItem;
+				_workerList.Remove((Worker)workerToRemove);
+				ShowList();
+			}
 		}
 
 		/// <summary>
@@ -95,18 +91,17 @@ namespace GUI
 		/// <param name="e"></param>
 		private void SaveButton_Click(object sender, EventArgs e)
 		{
-            var saveFileDialog = new SaveFileDialog
-            {
-                Filter = "Text files(*.gld)|*.gld|All files(*.*)|*.*", 
-                InitialDirectory = _initialDirectory
-            };
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+			var saveFileDialog = new SaveFileDialog
 			{
-				_path = saveFileDialog.FileName.ToString();
+				Filter = "Text files(*.gld)|*.gld|All files(*.*)|*.*"
+			};
+			if (saveFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				var path = saveFileDialog.FileName.ToString();
+				var file = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None);
+				_xmlSerializer.Serialize(file, _workerList);
+				file.Close();
 			}
-			var file = new FileStream(_path, FileMode.Create, FileAccess.Write, FileShare.None);
-			_xmlSerializer.Serialize(file, _workerList);
-			file.Close();
 		}
 
 		/// <summary>
@@ -116,19 +111,25 @@ namespace GUI
 		/// <param name="e"></param>
 		private void OpenButton_Click(object sender, EventArgs e)
 		{
-            var openFileDialog = new OpenFileDialog
-            {
-                Filter = "Text files(*.gld)|*.gld|All files(*.*)|*.*", 
-                InitialDirectory = _initialDirectory
-            };
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+			var openFileDialog = new OpenFileDialog
 			{
-				_path = openFileDialog.FileName.ToString();
+				Filter = "Text files(*.gld)|*.gld|All files(*.*)|*.*"
+			};
+			if (openFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				var path = openFileDialog.FileName.ToString();
+				var file = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.None);
+				try
+                {
+				_workerList = (List<Worker>)_xmlSerializer.Deserialize(file);
+                }
+				catch
+                {
+					MessageBox.Show("Файл поврежден!");
+				}
+				file.Close();
+				ShowList();
 			}
-			var file = new FileStream(_path, FileMode.Open, FileAccess.Read, FileShare.None);
-			_workerList = (List<Worker>)_xmlSerializer.Deserialize(file);
-			file.Close();
-			ShowList();
 		}
 
 		/// <summary>
@@ -168,12 +169,12 @@ namespace GUI
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
 		private void SearchBox_Enter(object sender, EventArgs e)
-        {
-            if (SearchBox.Text != _searchBoxDefaultText) return;
+		{
+			if (SearchBox.Text != _searchBoxDefaultText) return;
 
-            SearchBox.Text = "";
-            SearchBox.ForeColor = Color.Black;
-        }
+			SearchBox.Text = "";
+			SearchBox.ForeColor = Color.Black;
+		}
 
 		/// <summary>
 		/// событие когда поле для поиска не активно
@@ -181,20 +182,20 @@ namespace GUI
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
 		private void SearchBox_Leave(object sender, EventArgs e)
-        {
-            if (SearchBox.Text != "") return;
+		{
+			if (SearchBox.Text != "") return;
 
-            SearchBox.Text = _searchBoxDefaultText;
-            SearchBox.ForeColor = Color.Gray;
-        }
+			SearchBox.Text = _searchBoxDefaultText;
+			SearchBox.ForeColor = Color.Gray;
+		}
 
 		/// <summary>
 		/// Загрузка формы
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-        private void MainForm_Load(object sender, EventArgs e)
-        {
+		private void MainForm_Load(object sender, EventArgs e)
+		{
 			DataGridWorkers.AutoGenerateColumns = false;
 			SearchBox.Text = _searchBoxDefaultText;
 			SearchBox.ForeColor = Color.Gray;
@@ -204,5 +205,5 @@ namespace GUI
 				button.FlatStyle = FlatStyle.Flat;
 			}
 		}
-    }
+	}
 }

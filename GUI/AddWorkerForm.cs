@@ -12,6 +12,9 @@ using System.Windows.Forms;
 
 namespace GUI
 {
+	/// <summary>
+	/// Форма добаления работника
+	/// </summary>
 	public partial class AddWorkerForm : Form
 	{
 		/// <summary>
@@ -48,6 +51,8 @@ namespace GUI
 			TypeOfSalaryBox.Items.Add(_hourlyPaymentItem);
 			TypeOfSalaryBox.Items.Add(_tariffPaymentItem);
 			TypeOfSalaryBox.Items.Add(_ratePaymenttItem);
+			FormBorderStyle = FormBorderStyle.FixedDialog;
+			MaximizeBox = false;
 
 			#if !DEBUG
 			{ 

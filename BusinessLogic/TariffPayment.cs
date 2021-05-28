@@ -61,18 +61,18 @@ namespace BusinessLogic
 		/// </summary>
 		public decimal Salary
 		{
-			//TODO:
-			get => DaysWorked * Tariff / WorkingDaysInMonth * 87 / 100;
+			//TODO: +
+			get => DaysWorked * Tariff / WorkingDaysInMonth  * 0.87m;
 
 		}
 
-		//TODO: XML комментарии?
+		//TODO: XML комментарии? +
 		/// <summary>
 		/// Конструктор
 		/// </summary>
-		/// <param name="hoursWorked">Количество отработанных дней</param>
 		/// <param name="tariff">Тарифная ставка</param>
 		/// <param name="workingDaysInMonth">Количество рабочих дней в месяце</param>
+		/// <param name="daysWorked">Отработано дней</param>
 		public TariffPayment(decimal tariff, int workingDaysInMonth,int daysWorked)
 		{
 			Tariff = tariff;
@@ -86,7 +86,12 @@ namespace BusinessLogic
 		public TariffPayment() : this(1, 1, 1) { }
 		
 		
-		//TODO: XML комментарии?
+		//TODO: XML комментарии? +
+		/// <summary>
+		/// Проверка ввода количества дней
+		/// </summary>
+		/// <param name="daysWorked">Отработанные дни</param>
+		/// <param name="workingDaysInMonth">Рабочие дни месяца</param>
 		private static void ValidateDaysWorked(int daysWorked, int workingDaysInMonth)
 		{
 			ValidatingNumbers.ValidateIntNumber(daysWorked);
