@@ -13,7 +13,6 @@ namespace GUI
 	/// </summary>
     public abstract class PaymentFormBase : Form
     {
-		//не используется, но очень хочется
         /// <summary>
         /// Событие для передачи данных
         /// </summary>
@@ -45,7 +44,6 @@ namespace GUI
             }
         }
 
-
 		/// <summary>
 		/// Проверка ввода стоимости
 		/// </summary>
@@ -59,8 +57,9 @@ namespace GUI
 			Regex mainRegex = new Regex(mainPattern);
 			Regex commaRegex = new Regex(commaPattern);
 			Regex afterCommaRegex = new Regex(afterCommaPattern);
-			//TODO:
-			if (commaRegex.Matches(((TextBoxBase)sender).Text).Count < 1)
+			//TODO: +
+			var tmpTextBoxText = ((TextBoxBase)sender).Text;
+			if (commaRegex.Matches(tmpTextBoxText).Count < 1)
 			{
                 if (mainRegex.IsMatch(e.KeyChar.ToString())
                     && e.KeyChar != (char)Keys.Back)
@@ -72,7 +71,7 @@ namespace GUI
 			{
                 if ((mainRegex.IsMatch(e.KeyChar.ToString())
                     || commaRegex.IsMatch(e.KeyChar.ToString())
-                    || afterCommaRegex.IsMatch(((TextBoxBase)sender).Text))
+                    || afterCommaRegex.IsMatch(tmpTextBoxText))
                     && e.KeyChar != (char)Keys.Back)
                 {
                     e.Handled = true;
@@ -80,8 +79,12 @@ namespace GUI
             }
 		}
 
-		//TODO:
-        protected virtual void OnSendDataFromFormEvent(NachislatorEventArgs e)
+		//TODO: +
+		/// <summary>
+		/// Метод для передачи события
+		/// </summary>
+		/// <param name="e"></param>
+		protected void OnSendDataFromFormEvent(NachislatorEventArgs e)
         {
             SendDataFromFormEvent?.Invoke(this, e);
         }

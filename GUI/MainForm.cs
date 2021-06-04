@@ -23,11 +23,7 @@ namespace GUI
 		/// </summary>
 		private List<Worker> _workerList = new List<Worker>();
 
-		//TODO:
-		/// <summary>
-		/// XML сериализатор
-		/// </summary>
-		private XmlSerializer _xmlSerializer = new XmlSerializer(typeof(List<Worker>));
+		//TODO: (здесь был сериализатор) +
 
 		/// <summary>
 		/// Текст для запроса
@@ -97,9 +93,14 @@ namespace GUI
 			if (saveFileDialog.ShowDialog() == DialogResult.OK)
 			{
 				var path = saveFileDialog.FileName.ToString();
-				var file = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None);
-				_xmlSerializer.Serialize(file, _workerList);
-				file.Close();
+				try
+				{
+					Serializer.SaveFile(_workerList, path);
+				}
+				catch (Exception exception)
+				{
+					MessageBox.Show($"{exception.Message}");
+				}
 			}
 		}
 
@@ -115,20 +116,18 @@ namespace GUI
 				Filter = "Text files(*.gld)|*.gld|All files(*.*)|*.*"
 			};
 			if (openFileDialog.ShowDialog() == DialogResult.OK)
-			{
+            {
 				var path = openFileDialog.FileName.ToString();
-				var file = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.None);
 				try
                 {
-				    _workerList = (List<Worker>)_xmlSerializer.Deserialize(file);
-                }
-				catch
-                {
-					MessageBox.Show("Файл поврежден!");
+                    _workerList = Serializer.OpenFile(path);
+					ShowList();
 				}
-				file.Close();
-				ShowList();
-			}
+                catch (Exception exception)
+				{
+                    MessageBox.Show($"{exception.Message}");
+				}
+            }
 		}
 
 		/// <summary>
@@ -198,11 +197,8 @@ namespace GUI
 			DataGridWorkers.AutoGenerateColumns = false;
 			SearchBox.Text = _searchBoxDefaultText;
 			SearchBox.ForeColor = Color.Gray;
-			foreach (var button in Controls.OfType<Button>())
-			{
-				button.FlatAppearance.BorderSize = 0;
-				button.FlatStyle = FlatStyle.Flat;
-			}
+			var tmpControls = Controls.OfType<Button>().ToList();
+			ButtonLookImprovement.ButtonNiceLook(tmpControls);
 		}
 	}
 }

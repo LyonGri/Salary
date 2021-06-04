@@ -196,26 +196,13 @@ namespace GUI
 		private void AddWorkerForm_Load(object sender, EventArgs e)
 		{
 			ButtonNext.Enabled = false;
-			//TODO: Duplication
+			//TODO: Duplication +
             var tmpControls = groupBoxInformation.Controls.OfType<Button>().ToList();
 			tmpControls.Add(AllRandomButton);
-
-			foreach (var button in tmpControls)
-			{
-				buttonNiceLook(button);
-			}
+			ButtonLookImprovement.ButtonNiceLook(tmpControls);
 		}
 
-		//TODO: Duplication
-		/// <summary>
-		/// Наведение красоты у кнопок
-		/// </summary>
-		/// <param name="button"></param>
-		private void buttonNiceLook (Button button)
-		{
-			button.FlatAppearance.BorderSize = 0;
-			button.FlatStyle = FlatStyle.Flat;
-		}
+		//TODO: Duplication +
 
 
 		/// <summary>

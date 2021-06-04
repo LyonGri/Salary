@@ -75,16 +75,7 @@ namespace GUI
 			CostBox.Text = Randomizer.GetRandomDecimalInRange(1000, 2000).ToString();
 		}
 
-		 //TODO: RSDN
-		/// <summary>
-		/// Наведение красоты у кнопок
-		/// </summary>
-		/// <param name="button"></param>
-		private void buttonNiceLook(Button button)
-		{
-			button.FlatAppearance.BorderSize = 0;
-			button.FlatStyle = FlatStyle.Flat;
-		}
+		 //TODO: RSDN +
 
 		/// <summary>
 		/// Загрузка формы
@@ -93,11 +84,9 @@ namespace GUI
 		/// <param name="e"></param>
 		private void HourlyPaymentForm_Load(object sender, EventArgs e)
 		{
-			foreach (var button in groupBoxInformation.Controls.OfType<Button>())
-			{
-				buttonNiceLook(button);
-			}
-			buttonNiceLook(AllRandomButton);
+			var tmpControls = groupBoxInformation.Controls.OfType<Button>().ToList();
+			tmpControls.Add(AllRandomButton);
+			ButtonLookImprovement.ButtonNiceLook(tmpControls);
 		}
 
 		/// <summary>

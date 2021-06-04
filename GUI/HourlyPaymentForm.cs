@@ -18,11 +18,6 @@ namespace GUI
 	public partial class HourlyPaymentForm : PaymentFormBase
 	{
 		/// <summary>
-		/// Событие для передачи данных
-		/// </summary>
-		public event EventHandler<NachislatorEventArgs> SendDataFromFormEvent;
-
-		/// <summary>
 		/// Конструктор формы
 		/// </summary>
 		public HourlyPaymentForm() : base()
@@ -57,7 +52,7 @@ namespace GUI
                 HoursWorked = Int32.Parse(HoursBox.Text), 
                 CostPerHour = Decimal.Parse(CostBox.Text)
             };
-            SendDataFromFormEvent?.Invoke(this, new NachislatorEventArgs(salary));
+			OnSendDataFromFormEvent(new NachislatorEventArgs(salary));
 			Close();
 		}
 
@@ -81,17 +76,8 @@ namespace GUI
 			CostBox.Text = Randomizer.GetRandomDecimalInRange(100, 500).ToString();
 		}
 
-		//TODO: RSDN naming
-		//TODO: Duplication
-		/// <summary>
-		/// Наведение красоты у кнопок
-		/// </summary>
-		/// <param name="button"></param>
-		private void buttonNiceLook(Button button)
-		{
-			button.FlatAppearance.BorderSize = 0;
-			button.FlatStyle = FlatStyle.Flat;
-		}
+		//TODO: RSDN naming +
+		//TODO: Duplication +
 
 		/// <summary>
 		/// Загрузка формы
@@ -100,11 +86,9 @@ namespace GUI
 		/// <param name="e"></param>
 		private void HourlyPaymentForm_Load(object sender, EventArgs e)
 		{
-			foreach (var button in groupBoxInformation.Controls.OfType<Button>())
-			{
-				buttonNiceLook(button);
-			}
-			buttonNiceLook(AllRandomButton);
+			var tmpControls = groupBoxInformation.Controls.OfType<Button>().ToList();
+			tmpControls.Add(AllRandomButton);
+			ButtonLookImprovement.ButtonNiceLook(tmpControls);
 		}
 
 		/// <summary>
