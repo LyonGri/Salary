@@ -196,15 +196,12 @@ namespace GUI
 		private void AddWorkerForm_Load(object sender, EventArgs e)
 		{
 			ButtonNext.Enabled = false;
-			//TODO: Duplication +
+
             var tmpControls = groupBoxInformation.Controls.OfType<Button>().ToList();
 			tmpControls.Add(AllRandomButton);
 			ButtonLookImprovement.ButtonNiceLook(tmpControls);
 		}
-
-		//TODO: Duplication +
-
-
+		
 		/// <summary>
 		/// Делает кнопку активной, когда заполнены все поля
 		/// </summary>

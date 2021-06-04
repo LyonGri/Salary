@@ -74,9 +74,7 @@ namespace GUI
 		{
 			CostBox.Text = Randomizer.GetRandomDecimalInRange(1000, 2000).ToString();
 		}
-
-		 //TODO: RSDN +
-
+		
 		/// <summary>
 		/// Загрузка формы
 		/// </summary>

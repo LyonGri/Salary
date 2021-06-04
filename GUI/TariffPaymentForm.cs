@@ -155,11 +155,7 @@ namespace GUI
 			WorkedDaysBox.Enabled = true;
 			WorkedDaysBox.Text = "";
 		}
-
-		 //TODO: RSDN +
-		 //TODO: Duplication +
-
-
+		
 		/// <summary>
 		/// Загрузка формы
 		/// </summary>

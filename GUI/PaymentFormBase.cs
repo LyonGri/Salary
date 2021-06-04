@@ -57,7 +57,7 @@ namespace GUI
 			Regex mainRegex = new Regex(mainPattern);
 			Regex commaRegex = new Regex(commaPattern);
 			Regex afterCommaRegex = new Regex(afterCommaPattern);
-			//TODO: +
+
 			var tmpTextBoxText = ((TextBoxBase)sender).Text;
 			if (commaRegex.Matches(tmpTextBoxText).Count < 1)
 			{
@@ -79,7 +79,6 @@ namespace GUI
             }
 		}
 
-		//TODO: +
 		/// <summary>
 		/// Метод для передачи события
 		/// </summary>

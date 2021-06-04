@@ -22,9 +22,7 @@ namespace GUI
 		/// Лист работников
 		/// </summary>
 		private List<Worker> _workerList = new List<Worker>();
-
-		//TODO: (здесь был сериализатор) +
-
+		
 		/// <summary>
 		/// Текст для запроса
 		/// </summary>

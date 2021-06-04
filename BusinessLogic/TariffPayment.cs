@@ -59,15 +59,9 @@ namespace BusinessLogic
 		/// <summary>
 		/// Зарплата 
 		/// </summary>
-		public decimal Salary
-		{
-			//TODO: +
-			get => DaysWorked * Tariff / WorkingDaysInMonth  * 0.87m;
+		public decimal Salary => DaysWorked * Tariff / WorkingDaysInMonth  * 0.87m;
 
-		}
-
-		//TODO: XML комментарии? +
-		/// <summary>
+        /// <summary>
 		/// Конструктор
 		/// </summary>
 		/// <param name="tariff">Тарифная ставка</param>
@@ -85,8 +79,6 @@ namespace BusinessLogic
 		/// </summary>
 		public TariffPayment() : this(1, 1, 1) { }
 		
-		
-		//TODO: XML комментарии? +
 		/// <summary>
 		/// Проверка ввода количества дней
 		/// </summary>

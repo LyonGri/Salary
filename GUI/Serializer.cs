@@ -21,6 +21,7 @@ namespace GUI
 		/// <param name="path">Путь к файлу</param>
 		public static void SaveFile(List<Worker> workerList, string path)
 		{
+			 //TODO: RSDN
 			// теперь тут дублирование
 			var _xmlSerializer = new XmlSerializer(typeof(List<Worker>));
 			var file = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None);
@@ -35,10 +36,12 @@ namespace GUI
 		/// <returns></returns>
 		public static List<Worker> OpenFile(string path)
 		{
+			 //TODO: RSDN
 			var _xmlSerializer = new XmlSerializer(typeof(List<Worker>));
 			var file = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.None);
 			try
 			{
+				 //TODO: RSDN
 				var _workerList = (List<Worker>)_xmlSerializer.Deserialize(file);
 				file.Close();
 				return _workerList;
