@@ -11,9 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="RatePaymentForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Update="RatePaymentForm.cs" />
     <Compile Update="TariffPaymentForm.cs" />
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>

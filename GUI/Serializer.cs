@@ -15,18 +15,20 @@ namespace GUI
     public static class Serializer
     {
 		/// <summary>
+		/// Сериалайзер
+		/// </summary>
+		private static XmlSerializer _xmlSerializer = new XmlSerializer(typeof(List<Worker>));
+
+		/// <summary>
 		/// Сохранение листа в файл
 		/// </summary>
 		/// <param name="workerList">Лист</param>
 		/// <param name="path">Путь к файлу</param>
 		public static void SaveFile(List<Worker> workerList, string path)
 		{
-			 //TODO: RSDN
-			// теперь тут дублирование
-			var _xmlSerializer = new XmlSerializer(typeof(List<Worker>));
-			var file = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None);
+			 //TODO: RSDN +
+			using var file = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None);
 			_xmlSerializer.Serialize(file, workerList);
-			file.Close();
 		}
 
 		/// <summary>
@@ -36,19 +38,15 @@ namespace GUI
 		/// <returns></returns>
 		public static List<Worker> OpenFile(string path)
 		{
-			 //TODO: RSDN
-			var _xmlSerializer = new XmlSerializer(typeof(List<Worker>));
-			var file = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.None);
+			using var file = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.None);
 			try
 			{
-				 //TODO: RSDN
-				var _workerList = (List<Worker>)_xmlSerializer.Deserialize(file);
-				file.Close();
-				return _workerList;
+				 //TODO: RSDN +
+				var workerList = (List<Worker>)_xmlSerializer.Deserialize(file);
+				return workerList;
 			}
 			catch 
 			{
-				file.Close();
 				throw new Exception("Файл поврежден!");
 			}
 		}

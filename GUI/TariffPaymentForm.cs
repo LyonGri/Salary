@@ -37,9 +37,11 @@ namespace GUI
 			AllRandomButton.Click += RandomCostButton_Click;
 			
 			WorkedDaysBox.TextChanged += ButtonEnabler_TextChanged;
+			WorkingDaysBox.TextChanged += ButtonEnabler_TextChanged;
 			CostBox.TextChanged += ButtonEnabler_TextChanged;
 			ButtonNext.Enabled = false;
 			WorkedDaysBox.Enabled = false;
+			RandomDaysButton.Enabled = false;
 		}
 
 		/// <summary>
@@ -141,6 +143,11 @@ namespace GUI
 		/// <param name="e"></param>
 		private void ButtonEnabler_TextChanged(object sender, EventArgs e)
 		{
+			if (MonthBox.SelectedIndex > 0)
+			{
+				RandomDaysButton.Enabled = true;
+			}
+
 			ButtonNext.Enabled = WorkedDaysBox.Text.Length > 0
 									&& CostBox.Text.Length > 0;
 		}
@@ -163,6 +170,7 @@ namespace GUI
 		/// <param name="e"></param>
 		private void TariffPaymentForm_Load(object sender, EventArgs e)
 		{
+
 			var tmpControls = groupBoxInformation.Controls.OfType<Button>().ToList();
 			tmpControls.Add(AllRandomButton);
 			ButtonLookImprovement.ButtonNiceLook(tmpControls);
