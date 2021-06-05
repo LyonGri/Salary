@@ -26,9 +26,25 @@ namespace GUI
 		/// <param name="path">Путь к файлу</param>
 		public static void SaveFile(List<Worker> workerList, string path)
 		{
-			 //TODO: RSDN +
-			using var file = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None);
-			_xmlSerializer.Serialize(file, workerList);
+			FileStream file = null;
+			try
+			{
+				file = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None);
+				using (TextReader tr = new StreamReader(file))
+				{
+					file = null;
+					//TODO: RSDN +
+					_xmlSerializer.Serialize(file, workerList);
+				}
+			}
+			finally
+			{
+				if (file != null)
+					file.Dispose();
+			}
+			//как было
+			//using var file = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None);
+			//_xmlSerializer.Serialize(file, workerList);
 		}
 
 		/// <summary>
@@ -38,17 +54,41 @@ namespace GUI
 		/// <returns></returns>
 		public static List<Worker> OpenFile(string path)
 		{
-			using var file = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.None);
+			FileStream file = null;
 			try
 			{
-				 //TODO: RSDN +
-				var workerList = (List<Worker>)_xmlSerializer.Deserialize(file);
-				return workerList;
+				file = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.None);
+				using (TextReader tr = new StreamReader(file))
+				{
+					try
+					{
+						//TODO: RSDN +
+						var workerList = (List<Worker>)_xmlSerializer.Deserialize(file);
+						return workerList;
+					}
+                    catch
+                    {
+                        throw new Exception("Файл поврежден!");
+                    }
+                }
 			}
-			catch 
+			finally
 			{
-				throw new Exception("Файл поврежден!");
+				if (file != null)
+					file.Dispose();
 			}
+
+			//как было
+			//using var file = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.None);
+			//try
+			//{
+			//	var workerList = (List<Worker>)_xmlSerializer.Deserialize(file);
+			//	return workerList;
+			//}
+			//catch 
+			//{
+			//	throw new Exception("Файл поврежден!");
+			//}
 		}
 	}
 }
