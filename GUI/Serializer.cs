@@ -17,7 +17,7 @@ namespace GUI
 		/// <summary>
 		/// Сериалайзер
 		/// </summary>
-		private static XmlSerializer _xmlSerializer = new XmlSerializer(typeof(List<Worker>));
+		private static readonly XmlSerializer _xmlSerializer = new XmlSerializer(typeof(List<Worker>));
 
 		/// <summary>
 		/// Сохранение листа в файл
