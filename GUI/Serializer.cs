@@ -26,26 +26,9 @@ namespace GUI
 		/// <param name="path">Путь к файлу</param>
 		public static void SaveFile(List<Worker> workerList, string path)
 		{
-			FileStream file = null;
-			try
-			{
-				file = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None);
-				using (TextReader tr = new StreamReader(file))
-				{
-					file = null;
-					//TODO: RSDN +
-					_xmlSerializer.Serialize(file, workerList);
-				}
-			}
-			finally
-			{
-				if (file != null)
-					file.Dispose();
-			}
-			//как было
-			//using var file = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None);
-			//_xmlSerializer.Serialize(file, workerList);
-		}
+            using var file = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None);
+            _xmlSerializer.Serialize(file, workerList);
+        }
 
 		/// <summary>
 		/// Извлечение листа из файла
@@ -58,37 +41,20 @@ namespace GUI
 			try
 			{
 				file = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.None);
-				using (TextReader tr = new StreamReader(file))
-				{
-					try
-					{
-						//TODO: RSDN +
-						var workerList = (List<Worker>)_xmlSerializer.Deserialize(file);
-						return workerList;
-					}
-                    catch
-                    {
-                        throw new Exception("Файл поврежден!");
-                    }
+                using TextReader tr = new StreamReader(file);
+                try
+                {
+                    return (List<Worker>)_xmlSerializer.Deserialize(file);
                 }
-			}
+                catch
+                {
+                    throw new Exception("Файл поврежден!");
+                }
+            }
 			finally
-			{
-				if (file != null)
-					file.Dispose();
-			}
-
-			//как было
-			//using var file = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.None);
-			//try
-			//{
-			//	var workerList = (List<Worker>)_xmlSerializer.Deserialize(file);
-			//	return workerList;
-			//}
-			//catch 
-			//{
-			//	throw new Exception("Файл поврежден!");
-			//}
+            {
+                file?.Dispose();
+            }
 		}
 	}
 }
