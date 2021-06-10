@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BusinessLogic
 {
 	/// <summary>
-	/// 
+	/// Оплата по окладу
 	/// </summary>
 	public class TariffPayment : INachislator
 	{
